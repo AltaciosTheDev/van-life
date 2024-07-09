@@ -6,7 +6,7 @@ import About from "./pages/About"
 import Vans from "./pages/Vans/Vans"
 import VanDetail from "./pages/Vans/VanDetail"
 import Layout from "./components/Layout"
-import Host from "./pages/Host/Host"
+import HostLayout from "./components/HostLayout"
 import Dashboard from "./pages/Host/Dashboard"
 import Reviews from "./pages/Host/Reviews"
 import Income from "./pages/Host/Income"
@@ -17,15 +17,15 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/vans" element={<Vans />} />
-          <Route path="/vans/:id" element={<VanDetail />} />
-          <Route element={<Host/>}>
-            <Route path="/host" element = {<Dashboard/>}/>
-            <Route path="/host/income" element = {<Income/>}/>
-            <Route path="/host/reviews" element = {<Reviews/>}/>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="vans" element={<Vans />} />
+          <Route path="vans/:id" element={<VanDetail />} />
+          <Route path="host" element={<HostLayout/>}>
+            <Route index element = {<Dashboard/>}/>
+            <Route path="income" element = {<Income/>}/>
+            <Route path="reviews" element = {<Reviews/>}/>
           </Route>
         </Route>
       </Routes>
@@ -36,3 +36,23 @@ function App() {
 ReactDOM
   .createRoot(document.getElementById('root'))
   .render(<App />);
+
+
+  //WAY OF DOING THE ROUTING WITH ABOSLUTE PATHS
+  /*
+      <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/vans" element={<Vans />} />
+          <Route path="/vans/:id" element={<VanDetail />} />
+          <Route element={<HostLayout/>}>
+            <Route path="/host" element = {<Dashboard/>}/>
+            <Route path="/host/income" element = {<Income/>}/>
+            <Route path="/host/reviews" element = {<Reviews/>}/>
+          </Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  */
