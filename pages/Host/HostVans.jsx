@@ -12,9 +12,10 @@ export default function HostVans() {
 
     const hostVansEls = vans.map(van => (
         <Link
-            to={`/host/vans/${van.id}`}
+            to={`${van.id}`}  /*Relative routes are always like, i know i am here, FROM here, where do you want to go. JUST APPEND AD THE END */
             key={van.id}
             className="host-van-link-wrapper"
+            
         >
             <div className="host-van-single" key={van.id}>
                 <img src={van.imageUrl} alt={`Photo of ${van.name}`} />
