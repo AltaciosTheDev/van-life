@@ -66,7 +66,7 @@ export default function HostVansDetail() {
                         Photos
                     </NavLink>
                 </nav>
-                <Outlet/>
+                <Outlet context={{currentVan}}/>{/* VanInfo, VanPricing, VanPhotos, either one could show up. */}
             </div>
         </section>
     )
