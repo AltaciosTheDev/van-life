@@ -1,6 +1,6 @@
 import React from "react"
 import {Link, useSearchParams} from "react-router-dom"
-
+import {getVans} from "../../api"
 /**
  * {
     * id: "1", 
@@ -15,14 +15,31 @@ import {Link, useSearchParams} from "react-router-dom"
 
 export default function Vans() {
     const [searchParams, setSearchParams] = useSearchParams()
+    const [vans, setVans] = React.useState([])
+    const [loading, setLoading] = React.useState(false)
+    const [error, setError] = React.useState(null)
+
     const typeFilter = searchParams.get("type")
     console.log(typeFilter)
 
-    const [vans, setVans] = React.useState([])
     React.useEffect(() => {
-        fetch("/api/vans")
-            .then(res => res.json())
-            .then(data => setVans(data.vans))
+        async function loadVans(){
+            setLoading(true)
+            try{
+                const data = await getVans()
+                setVans(data)
+            }
+            catch(err){
+                console.log("There was an error")
+                console.log(err)
+                setError(err)
+            }
+            finally{
+                setLoading(false) //can be used always in a finally block, because they will be called regardless
+            }
+            
+        }
+        loadVans()
     }, [])
 
     const filteredVans = typeFilter ? vans.filter(van => van.type.toLowerCase() === typeFilter) : vans
@@ -53,6 +70,12 @@ export default function Vans() {
         })
     }
 
+    if(loading){
+        return <h1>Loading...</h1>
+    }
+    if(error){
+        return <h1>There was an error... {error.message}</h1>
+    }
 
     return (
         <div className="van-list-container">
